@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shailesh Lambode | AI/ML Developer Portfolio</title>
+    <!-- Load Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font --><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables for Theme Management */
+        /* Default: Dark Theme */
+        :root {
+            --primary-color: #4f46e5; /* Indigo-600 */
+            --secondary-color: #818cf8; /* Indigo-400 */
+            --color-text: #f1f5f9; /* Slate-100 (Main text - Light) */
+            --color-text-dim: #94a3b8; /* Slate-400 (Dim text) */
+            --color-bg: #0f172a; /* Slate-900 (Body background) */
+            --color-card-bg: #1e293b; /* Slate-800 (Card background) */
+            --color-shadow: rgba(79, 70, 229, 0.2);
+        }
+        /* Light Theme Overrides (High Contrast & Readability Checked) */
+        .light-mode {
+            --primary-color: #4f46e5; /* Consistent Primary CTA color */
+            --secondary-color: #3b82f6; /* A richer Blue (Blue-500) for better pop */
+            --color-text: #101625; /* Near Black for maximum readability */
+            --color-text-dim: #334155; /* Slate-700 for better visibility than Slate-600 */
+            --color-bg: #f8fafc; /* Slate-50 (Lightest body background) */
+            --color-card-bg: #ffffff; /* White (Card background) */
+            --color-shadow: rgba(0, 0, 0, 0.15); /* Slightly darker shadow for depth */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text); /* Main text color controlled here */
+            scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Applying variables to common Tailwind-like classes */
+        .text-primary { color: var(--primary-color); }
+        .text-secondary { color: var(--secondary-color); }
+        .bg-body-bg { background-color: var(--color-bg); }
+        .bg-card-bg { background-color: var(--color-card-bg); }
+        /* text-white is changed to text-current in HTML for dynamic color inheritance */
+        .text-gray-300 { color: var(--color-text); }
+        .text-gray-400 { color: var(--color-text-dim); }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: var(--color-text); /* Ensure title text color is dynamic */
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50%;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 9999px;
+        }
+        /* Custom Button Style for Project Links */
+        .project-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem; /* rounded-lg */
+            font-weight: 600; /* font-semibold */
+            background-color: var(--primary-color);
+            color: white; /* Always white text on primary button */
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 6px -1px var(--color-shadow), 0 2px 4px -2px var(--color-shadow); /* dynamic shadow */
+        }
+        .project-button:hover {
+            background-color: #3730a3; /* Indigo-700 equivalent */
+            transform: translateY(-1px);
+        }
+        .project-button-secondary {
+            background-color: var(--color-card-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            box-shadow: none;
+        }
+        /* In light mode, ensure secondary button text remains dark against light background, until hovered */
+        .light-mode .project-button-secondary {
+            color: var(--primary-color);
+        }
+        .project-button-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Adjusting card shadows dynamically for theme */
+        .shadow-xl {
+            box-shadow: 0 20px 25px -5px var(--color-shadow), 0 8px 10px -6px var(--color-shadow);
+        }
+    </style>
+    <script>
+        // Custom Tailwind Config (using variables)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': 'var(--primary-color)',
+                        'secondary': 'var(--secondary-color)',
+                        'card-bg': 'var(--color-card-bg)',
+                        'body-bg': 'var(--color-bg)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation --><header class="sticky top-0 z-50 bg-card-bg bg-opacity-95 shadow-lg backdrop-blur-sm transition duration-300">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <!-- UPDATED: Using text-current for dynamic theme color --><a href="#" class="text-2xl font-bold text-current hover:text-primary transition duration-300">Shailesh Lambode</a>
+            
+            <div class="flex items-center space-x-6">
+                <!-- Desktop Navigation Links --><div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-gray-400 hover:text-primary transition duration-300">About</a>
+                    <a href="#skills" class="text-gray-400 hover:text-primary transition duration-300">Skills</a>
+                    <a href="#projects" class="text-gray-400 hover:text-primary transition duration-300">Projects</a>
+                    <a href="#contact" class="text-gray-400 hover:text-primary transition duration-300">Contact</a>
+                </div>
+                
+                <!-- Theme Toggle Slider Button --><div class="flex items-center">
+                    <span id="theme-icon" class="text-xl mr-2" aria-label="Theme Icon">🌙</span>
+                    <label for="theme-toggle" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" id="theme-toggle" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/50 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                    </label>
+                </div>
+
+                <!-- Mobile Menu Button --><button id="mobile-menu-button" class="md:hidden text-current focus:outline-none p-2 rounded-md hover:bg-body-bg transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu --><div id="mobile-menu" class="md:hidden hidden bg-card-bg">
+            <a href="#about" class="block px-4 py-2 text-current hover:bg-body-bg transition">About</a>
+            <a href="#skills" class="block px-4 py-2 text-current hover:bg-body-bg transition">Skills</a>
+            <a href="#projects" class="block px-4 py-2 text-current hover:bg-body-bg transition">Projects</a>
+            <a href="#contact" class="block px-4 py-2 text-current hover:bg-body-bg transition">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section --><section id="hero" class="py-20 lg:py-32 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-3 gap-12 items-center">
+            <!-- Text Content --><div class="md:col-span-2 order-2 md:order-1 text-center md:text-left">
+                <span class="text-lg font-medium text-secondary mb-2 block">Hello, I'm</span>
+                <!-- UPDATED: Using text-current for dynamic theme color --><h1 class="text-5xl lg:text-7xl font-extrabold mb-4 leading-tight text-current">Shailesh Lambode</h1>
+                <p class="text-2xl font-light text-gray-400 mb-6">PYTHON DEVELOPER | AI/ML DEVELOPER</p>
+                <p class="text-lg max-w-xl text-gray-400 mb-8">
+                    Entry-level Machine Learning Engineer skilled in developing and deploying ML and Deep Learning models. Proficient in Python, Scikit-learn, and PyTorch, with expertise in data preprocessing, feature engineering, and model evaluation.
+                </p>
+                <!-- Three Call-to-Action Buttons --><div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                    <!-- Primary CTA --><a href="#projects" class="bg-primary text-white py-3 px-8 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 transform hover:scale-105 shadow-lg shadow-indigo-500/50">View Projects</a>
+                    <!-- Secondary CTA: View Resume --><a href="https://drive.google.com/file/d/1Td98uM7PGSbmgIpJdnNVoJWYGfZaQb9c/view?usp=drive_link" target="_blank" class="bg-card-bg text-primary py-3 px-8 rounded-lg font-semibold border border-primary hover:bg-primary hover:text-white transition duration-300 transform hover:scale-105">View Resume</a>
+                    <!-- Tertiary CTA: Get In Touch (Styling adjusted for hierarchy) --><a href="#contact" class="text-primary py-3 px-8 rounded-lg font-semibold hover:bg-primary hover:text-white transition duration-300 transform hover:scale-105 border border-transparent hover:border-primary">Get In Touch</a>
+                </div>
+            </div>
+            <!-- Profile Image --><div class="md:col-span-1 order-1 md:order-2 flex justify-center">
+                <div class="w-64 h-64 rounded-full bg-card-bg border-4 border-primary p-1 overflow-hidden shadow-2xl flex items-center justify-center text-center">
+                    <img src="Profile_photo.png" alt="Shailesh Lambode Profile Photo" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section --><section id="about" class="py-16 bg-card-bg transition duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold section-title mb-8">About Me</h2>
+            <div class="text-lg leading-relaxed text-gray-400 space-y-4">
+                <p>
+                    I am a passionate <span class="font-semibold text-current">AI/ML Developer</span> focused on applying Al-driven solutions to solve real-world problems. My journey involves hands-on experience across <span class="font-semibold text-current">computer vision, regression, and classification</span> domains.
+                </p>
+                <p>
+                    I excel in the full lifecycle of model development, from data preprocessing and feature engineering (including advanced techniques like <span class="font-semibold text-current">Weight of Evidence (WOE)</span> and <span class="font-semibold text-current">Information Value (IV)</span>) to model fine-tuning and evaluation using critical metrics like <span class="font-semibold text-current">ROC-AUC, KS Statistic, and Gini Coefficient</span>.
+                </p>
+                <p>
+                    I have practical experience deploying models into user-friendly web applications using <span class="font-semibold text-current">Streamlit</span> and have trained highly accurate models with <span class="font-semibold text-current">PyTorch</span>, including Transfer Learning approaches like <span class="font-semibold text-current">ResNet50</span>. My goal is to leverage my skills to create impactful, data-driven products.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills Section --><section id="skills" class="py-16 bg-body-bg transition duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold section-title">Technical Skills</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-8">
+
+                <!-- Deep Learning & NN --><div class="p-6 bg-card-bg rounded-xl shadow-xl hover:shadow-primary/20 transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary">
+                    <h3 class="text-xl font-semibold mb-3 text-secondary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9h2m14 0h2M5 15h2m14 0h2M10 3.5l4 4M10 20.5l4-4M14 3.5l-4 4M14 20.5l-4-4M3 10v4h2v-4H3zm16 0v4h2v-4h-2z"/></svg>
+                        Deep Learning & PyTorch
+                    </h3>
+                    <ul class="text-gray-400 space-y-1 text-sm list-inside">
+                        <li>MLP, CNN, RNN, LSTM, Transformers</li>
+                        <li>PyTorch (Tensors, Autograd)</li>
+                        <li>Transfer Learning, Hugging Face</li>
+                    </ul>
+                </div>
+
+                <!-- Machine Learning & Stats --><div class="p-6 bg-card-bg rounded-xl shadow-xl hover:shadow-primary/20 transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary">
+                    <h3 class="text-xl font-semibold mb-3 text-secondary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+                        ML Algorithms
+                    </h3>
+                    <ul class="text-gray-400 space-y-1 text-sm list-inside">
+                        <li>Linear/Logistic Regression, SVM</li>
+                        <li>Decision Trees, Random Forest, XGBoost</li>
+                        <li>Clustering (K-Means, Hierarchical)</li>
+                    </ul>
+                </div>
+
+                <!-- Data Science & Metrics --><div class="p-6 bg-card-bg rounded-xl shadow-xl hover:shadow-primary/20 transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary">
+                    <h3 class="text-xl font-semibold mb-3 text-secondary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l2-2 2 2 2-2 2 2m-8-2v6m4-6v6m4-6v6"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636A9 9 0 115.636 18.364M18.364 5.636L12 12"/></svg>
+                        Data & Evaluation
+                    </h3>
+                    <ul class="text-gray-400 space-y-1 text-sm list-inside">
+                        <li>EDA, Feature Engineering (WOE/IV)</li>
+                        <li>ROC-AUC, KS Statistic, Gini Coefficient</li>
+                        <li>Accuracy, Precision, Recall, F1-Score</li>
+                    </ul>
+                </div>
+                
+                <!-- Python & Tools --><div class="p-6 bg-card-bg rounded-xl shadow-xl hover:shadow-primary/20 transition duration-300 transform hover:-translate-y-1 border border-transparent hover:border-primary">
+                    <h3 class="text-xl font-semibold mb-3 text-secondary flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                        Ecosystem & Tools
+                    </h3>
+                    <ul class="text-gray-400 space-y-1 text-sm list-inside">
+                        <li>Core Python (OOP, DS)</li>
+                        <li>Pandas, NumPy, Matplotlib, Seaborn</li>
+                        <li>Streamlit, Git, Optuna, GridSearchCV</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section --><section id="projects" class="py-16 bg-card-bg transition duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold section-title">Projects Showcase</h2>
+
+            <!-- AI/ML Projects Subsection --><h3 class="text-2xl font-semibold text-secondary mt-10 mb-6">AI/ML Prediction Projects (Streamlit Demos)</h3>
+
+            <div class="space-y-12 mt-8">
+                
+                <!-- Project 1: Brain Tumour Detector --><div class="p-6 lg:p-8 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h3 class="text-2xl font-bold text-current mb-2">Brain Tumour Detector</h3>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Computer Vision - Deep Learning</span>
+                    <p class="text-gray-400 mb-4">
+                        Developed a high-accuracy, Streamlit-based web application to classify MRI brain scans into 4 categories (Glioma, Meningioma, Pituitary, No-Tumor).
+                    </p>
+                    <ul class="text-gray-400 list-disc pl-5 mb-4 space-y-1 text-sm">
+                        <li>Implemented a <span class="font-semibold text-current">ResNet50 Transfer Learning model</span> with PyTorch.</li>
+                        <li>Achieved approximately <span class="font-semibold text-current">98% classification accuracy</span>.</li>
+                        <li>Processed and cleaned over 7,000+ MRI images, applying augmentation and normalization for improved generalization.</li>
+                    </ul>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://brain-tumour-detector-shailesh.streamlit.app/" target="_blank" class="project-button mr-3">
+                        View Live Streamlit Demo
+                        <!-- Updated to Live Demo Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <!-- ADDED SECONDARY BUTTON FOR GITHUB -->
+                    <a href="https://github.com/ShaileshLambode/brain-tumour-detector" target="_blank" class="project-button project-button-secondary">
+                        <!-- Updated to GitHub Icon -->
+                        GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Project 2: Vehicle Damage Detection App --><div class="p-6 lg:p-8 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h3 class="text-2xl font-bold text-current mb-2">Vehicle Damage Detection App</h3>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Computer Vision - Deep Learning</span>
+                    <p class="text-gray-400 mb-4">
+                        A web application that detects car damages via drag-and-drop image input. Focused on real-time application and deployment feasibility.
+                    </p>
+                    <ul class="text-gray-400 list-disc pl-5 mb-4 space-y-1 text-sm">
+                        <li>Trained a <span class="font-semibold text-current">ResNet50-based Transfer Learning model</span> on ~1,700 labeled images with 6 target classes.</li>
+                        <li>Achieved approximately <span class="font-semibold text-current">80% validation accuracy</span> using PyTorch with GPU acceleration.</li>
+                    </ul>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://shailesh-dl-project-vehicle-damage-prediction.streamlit.app/" target="_blank" class="project-button mr-3">
+                        View Live Streamlit Demo
+                        <!-- Updated to Live Demo Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <!-- ADDED SECONDARY BUTTON FOR GITHUB (assuming the GitHub link is similar to other repos) -->
+                    <a href="https://github.com/ShaileshLambode/shailesh-dl-project-vehicle-damage-prediction" target="_blank" class="project-button project-button-secondary">
+                        <!-- Updated to GitHub Icon -->
+                        GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Project 3: Credit Risk Modelling --><div class="p-6 lg:p-8 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h3 class="text-2xl font-bold text-current mb-2">Credit Risk Modelling</h3>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Classification - Machine Learning</span>
+                    <p class="text-gray-400 mb-4">
+                        A robust classification model to assess the probability of loan default, processing raw loan application records.
+                    </p>
+                    <ul class="text-gray-400 list-disc pl-5 mb-4 space-y-1 text-sm">
+                        <li>Processed and analyzed 50,000 loan application records.</li>
+                        <li>Implemented advanced feature transformation using <span class="font-semibold text-current">Weight of Evidence (WOE)</span> and <span class="font-semibold text-current">Information Value (IV)</span>.</li>
+                        <li>Achieved an impressive <span class="font-semibold text-current">ROC-AUC score of 0.98</span> and evaluated performance using KS Statistic and Gini Coefficient.</li>
+                    </ul>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://shailesh-ml-project-credit-risk-model.streamlit.app/" target="_blank" class="project-button mr-3">
+                        View Live Streamlit Demo
+                        <!-- Updated to Live Demo Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <!-- ADDED SECONDARY BUTTON FOR GITHUB -->
+                    <a href="https://github.com/ShaileshLambode/shailesh-ml-project-credit-risk-model" target="_blank" class="project-button project-button-secondary">
+                        <!-- Updated to GitHub Icon -->
+                        GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Project 4: Healthcare Premium Prediction --><div class="p-6 lg:p-8 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h3 class="text-2xl font-bold text-current mb-2">Healthcare Premium Prediction</h3>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Regression - Machine Learning</span>
+                    <p class="text-gray-400 mb-4">
+                        A model developed to predict insurance premium costs based on various features, with a focus on high prediction accuracy.
+                    </p>
+                    <ul class="text-gray-400 list-disc pl-5 mb-4 space-y-1 text-sm">
+                        <li>Cleaned and analyzed 50,000+ records to identify premium cost patterns.</li>
+                        <li>Applied feature engineering techniques, improving model accuracy to <span class="font-semibold text-current">97%</span> using Scikit-learn.</li>
+                        <li>Performed error analysis, segmentation, and retraining for improved performance.</li>
+                    </ul>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://shailesh-ml-project-premium-prediction.streamlit.app/" target="_blank" class="project-button mr-3">
+                        View Live Streamlit Demo
+                        <!-- Updated to Live Demo Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                    <!-- ADDED SECONDARY BUTTON FOR GITHUB -->
+                    <a href="https://github.com/ShaileshLambode/shailesh-ml-project-premium-prediction" target="_blank" class="project-button project-button-secondary">
+                        <!-- Updated to GitHub Icon -->
+                        GitHub
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- General Python Projects Subsection --><h3 class="text-2xl font-semibold text-secondary mt-16 mb-6">General Python Development Projects (Games & Utilities)</h3>
+            
+            <!-- MOVED NOTE HERE -->
+            <p class="text-gray-400 mb-8 max-w-4xl mx-auto text-center p-3 rounded-lg bg-body-bg border border-primary/30 transition duration-300">
+                <span class="font-semibold text-primary">Note:</span> Previews and detailed usage instructions for all projects are available directly within their respective GitHub repositories.
+            </p>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                
+                <!-- Python Project 1: Snake Game --><div class="p-6 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h4 class="text-xl font-bold text-current mb-2">Python Snake Game</h4>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Python | Game Development</span>
+                    <p class="text-gray-400 mb-4 text-sm">A classic Snake Game implementation using Python, showcasing object-oriented programming and game loop mechanics (using Turtle or similar library).</p>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://github.com/ShaileshLambode/py-snake-game" target="_blank" class="project-button project-button-secondary">
+                        View on GitHub
+                        <!-- Updated to GitHub Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+                
+                <!-- Python Project 2: Password Generator --><div class="p-6 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h4 class="text-xl font-bold text-current mb-2">Python Password Generator</h4>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Python | Utility Tool</span>
+                    <p class="text-gray-400 mb-4 text-sm">A command-line utility script for generating strong, random passwords based on user-defined criteria (length, character types).</p>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://github.com/ShaileshLambode/py-password-generator" target="_blank" class="project-button project-button-secondary">
+                        View on GitHub
+                        <!-- Updated to GitHub Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Python Project 3: Pong Game --><div class="p-6 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h4 class="text-xl font-bold text-current mb-2">Python Pong Game</h4>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Python | Game Development</span>
+                    <p class="text-gray-400 mb-4 text-sm">Implementation of the classic arcade game Pong, demonstrating game physics, paddle controls, and real-time screen updates.</p>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://github.com/ShaileshLambode/py-pong-game" target="_blank" class="project-button project-button-secondary">
+                        View on GitHub
+                        <!-- Updated to GitHub Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Python Project 4: Map Quiz Game --><div class="p-6 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h4 class="text-xl font-bold text-current mb-2">Python Map Quiz Game</h4>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Python | Educational Game</span>
+                    <p class="text-gray-400 mb-4 text-sm">An interactive geographical quiz game leveraging Python's graphical capabilities for state/capital knowledge testing.</p>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://github.com/ShaileshLambode/py-map-quiz-game" target="_blank" class="project-button project-button-secondary">
+                        View on GitHub
+                        <!-- Updated to GitHub Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Python Project 5: Standard Quiz Game --><div class="p-6 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h4 class="text-xl font-bold text-current mb-2">Python Standard Quiz Game</h4>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Python | Logic & Structure</span>
+                    <p class="text-gray-400 mb-4 text-sm">A general-purpose quiz game demonstrating question management, scoring logic, and user input handling.</p>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://github.com/ShaileshLambode/py-quiz-game" target="_blank" class="project-button project-button-secondary">
+                        View on GitHub
+                        <!-- Updated to GitHub Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+                <!-- Python Project 6: Turtle Cross Game --><div class="p-6 bg-body-bg rounded-xl shadow-2xl border border-transparent hover:border-primary transition duration-300">
+                    <!-- UPDATED: Using text-current for dynamic theme color --><h4 class="text-xl font-bold text-current mb-2">Python Turtle Cross Game</h4>
+                    <span class="inline-block px-3 py-1 text-xs font-semibold text-primary bg-primary/20 rounded-full mb-4">Python | Graphics & OOP</span>
+                    <p class="text-gray-400 mb-4 text-sm">A "Frogger"-style crossing game built with Python's Turtle library, focusing on object movement, collision detection, and level management.</p>
+                    <!-- CONVERTED TO BUTTON -->
+                    <a href="https://github.com/ShaileshLambode/py-turtle-cross-game" target="_blank" class="project-button project-button-secondary">
+                        View on GitHub
+                        <!-- Updated to GitHub Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 ml-1"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Contact & Footer Section --><section id="contact" class="py-16 bg-body-bg transition duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold section-title mx-auto mb-8">Get In Touch</h2>
+            <p class="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                I'm currently seeking new opportunities and challenges in the AI/ML space. Feel free to connect or drop me an email!
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+                <!-- Email --><div class="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-17 4v7a2 2 0 002 2h12a2 2 0 002-2v-7"/></svg>
+                    <a href="mailto:shaileshlambode2908@gmail.com" class="text-lg text-gray-400 hover:text-primary transition duration-300">shaileshlambode2908@gmail.com</a>
+                </div>
+                <!-- LinkedIn --><div class="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7 text-primary mr-3"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.142-4 0v5.604h-3v-11h3v1.765c1.396-2.585 7-2.764 7 2.476v6.759z" clip-rule="evenodd" /></svg>
+                    <a href="https://linkedin.com/in/shaileshlambode/" target="_blank" class="text-lg text-gray-400 hover:text-primary transition duration-300">LinkedIn Profile</a>
+                </div>
+                <!-- GitHub --><div class="flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7 text-primary mr-3"><path fill-rule="evenodd" d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.04-1.61-4.04-1.61-.546-1.385-1.332-1.75-1.332-1.75-1.09-.743.083-.73.083-.73 1.205.084 1.838 1.235 1.838 1.235 1.07 1.83 2.808 1.3 3.49.993.108-.77.42-1.3.762-1.59-2.665-.304-5.467-1.333-5.467-5.932 0-1.31.468-2.38 1.235-3.22-.124-.304-.537-1.524.117-3.176 0 0 1.008-.323 3.303 1.23.958-.266 1.983-.4 3.003-.404 1.02.004 2.045.138 3.003.404 2.295-1.553 3.303-1.23 3.303-1.23.654 1.652.24 2.872.118 3.176.77.84 1.233 1.91 1.233 3.22 0 4.61-2.807 5.624-5.48 5.923.43.372.812 1.103.812 2.22 0 1.597-.015 2.887-.015 3.284 0 .317.22.687.828.577C20.562 21.8 24 17.302 24 12c0-6.627-5.373-12-12-12z" clip-rule="evenodd" /></svg>
+                    <a href="https://github.com/ShaileshLambode" target="_blank" class="text-lg text-gray-400 hover:text-primary transition duration-300">GitHub Profile</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer --><footer class="bg-body-bg border-t border-card-bg mt-10 transition duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-gray-400">
+            <p>&copy; 2025 Shailesh Lambode. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu and Theme Toggle --><script>
+        const body = document.body;
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Function to set the theme
+        function setTheme(isLight) {
+            if (isLight) {
+                body.classList.add('light-mode');
+                themeToggle.checked = true;
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.remove('light-mode');
+                themeToggle.checked = false;
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // 1. Initialize Theme from localStorage
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'light') {
+            setTheme(true);
+        } else if (storedTheme === 'dark') {
+             setTheme(false);
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+            // Default to system preference if no theme is stored
+             setTheme(true);
+        } else {
+             setTheme(false);
+        }
+
+
+        // 2. Theme Toggle Listener
+        themeToggle.addEventListener('change', function() {
+            setTheme(this.checked);
+        });
+
+        // 3. Mobile Menu Toggle
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
